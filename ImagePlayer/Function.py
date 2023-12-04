@@ -1,10 +1,12 @@
 import os
 import json
+import webbrowser
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtCore import QTimer, Qt
+from PyQt5.QtCore import QTimer, Qt, QPoint, QRect, QPropertyAnimation, QEasingCurve
 from PyQt5.QtWidgets import QFileDialog, QLabel, QMessageBox, QListWidget, QListWidgetItem, QDialog, QVBoxLayout, \
     QProgressDialog, QApplication
 from Entrance import mainwindow
+from Feedback import FeedbackDialog
 
 
 class Controller:
@@ -26,6 +28,7 @@ class Controller:
         self.play_timer = QTimer()
         self.play_timer.timeout.connect(self.Carousel)
         self.image_index = 0
+        self.image = []
         self.labels = []
 
     def InitFunction(self):
@@ -34,7 +37,12 @@ class Controller:
         self.ui.pushButton_3.clicked.connect(self.clear)
         self.ui.pushButton_4.clicked.connect(self.history)
         self.ui.pushButton_5.clicked.connect(self.feedback)
+        self.ui.pushButton_6.clicked.connect(self.seecode)
         self.ui.horizontalSlider.valueChanged.connect(self.play_timer.stop)
+        self.animation_up = QPropertyAnimation(self.ui.widget_4, b"geometry")
+        self.animation_down = QPropertyAnimation(self.ui.widget_4, b"geometry")
+        self.ui.dockWidget.enterEvent = self.dockWidgetEnterEvent
+        self.ui.dockWidget.leaveEvent = self.dockWidgetLeaveEvent
 
     def selectFolder(self):
         folder = QFileDialog.getExistingDirectory(self.ui, '选择文件夹', 'E:\Picture Files')
@@ -63,7 +71,7 @@ class Controller:
             if progress_dialog.wasCanceled():
                 break
 
-            height = int((self.ui.height() - 170))
+            height = int((self.ui.height() - 200))
             label = QLabel()
             label.setScaledContents(True)
             picture = QPixmap(self.image[self.image_index])
@@ -88,10 +96,15 @@ class Controller:
             self.timer.stop()
 
     def handleResizeEvent(self):
-        height = int((self.ui.height() - 170))
+        height = int((self.ui.height() - 200))
         for label in self.labels:
             picture = label.pixmap()
             label.setFixedSize(int(picture.width() * (height / picture.height())), height)
+
+        dock_width = self.ui.dockWidget.width()
+        widget_width = self.ui.widget_4.width()
+        new_x = max((dock_width - widget_width) // 2, 0)
+        self.ui.widget_4.setGeometry(new_x, 64, widget_width, 51)
 
     def timerStart(self):
         if self.play_timer.isActive():
@@ -147,7 +160,38 @@ class Controller:
         item.listWidget().window().close()
 
     def feedback(self):
-        pass
+        dialog = FeedbackDialog(self.ui)
+        dialog.exec_()
 
     def seecode(self):
-        pass
+        webbrowser.open('https://github.com/wlkla/pictureplayer/tree/main')
+
+    def dockWidgetEnterEvent(self, event):
+        # Start animation to move widget_4 from outside to inside when the mouse enters the dockWidget
+        self.moveWidget4FromOutside()
+
+    def dockWidgetLeaveEvent(self, event):
+        # Start animation to move widget_4 from inside to outside when the mouse leaves the dockWidget
+        self.moveWidget4ToOutside()
+
+    def moveWidget4FromOutside(self):
+        x = self.ui.widget_4.x()
+        width = self.ui.widget_4.width()
+        target_rect = QRect(x, 4, width, 51)
+
+        self.animation_up.setStartValue(QRect(x, 64, width, 51))
+        self.animation_up.setEndValue(target_rect)
+        self.animation_up.setDuration(500)
+        self.animation_up.setEasingCurve(QEasingCurve.OutCubic)
+        self.animation_up.start()
+
+    def moveWidget4ToOutside(self):
+        x = self.ui.widget_4.x()
+        width = self.ui.widget_4.width()
+        target_rect = QRect(x, 64, width, 51)
+
+        self.animation_down.setStartValue(QRect(x, 4, width, 51))
+        self.animation_down.setEndValue(target_rect)
+        self.animation_down.setDuration(500)
+        self.animation_down.setEasingCurve(QEasingCurve.OutCubic)
+        self.animation_down.start()

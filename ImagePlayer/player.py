@@ -45,8 +45,9 @@ class Ui_Form(object):
         self.horizontalLayout_3.addItem(spacerItem1)
         self.lineEdit = QtWidgets.QLineEdit(self.widget)
         self.lineEdit.setStyleSheet("font: 12pt \"隶书\";\n"
-"border:1px solid white;\n"
-"padding:7px;")
+"border:2px solid white;\n"
+"padding:7px;\n"
+"border-radius:8px;")
         self.lineEdit.setAlignment(QtCore.Qt.AlignCenter)
         self.lineEdit.setObjectName("lineEdit")
         self.horizontalLayout_3.addWidget(self.lineEdit)
@@ -57,10 +58,10 @@ class Ui_Form(object):
 "padding:7px;\n"
 "font: 12pt \"黑体\";\n"
 "border-radius:8px;\n"
-"border:1px solid white;\n"
+"border:2px solid white;\n"
 "}\n"
 "QPushButton:hover{\n"
-"border:1px solid black;\n"
+"border:2px solid black;\n"
 "background-color: rgb(255, 255, 255);\n"
 "}\n"
 "QPushButton:pressed{\n"
@@ -82,7 +83,7 @@ class Ui_Form(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 956, 391))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 956, 350))
         self.scrollAreaWidgetContents.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.scrollAreaWidgetContents.setStyleSheet("")
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
@@ -92,15 +93,23 @@ class Ui_Form(object):
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout.addWidget(self.scrollArea)
-        self.widget_3 = QtWidgets.QWidget(self.MyWidget)
-        self.widget_3.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
-        self.widget_3.setObjectName("widget_3")
-        self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.widget_3)
-        self.horizontalLayout_6.setContentsMargins(0, 5, 0, 0)
-        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_6.addItem(spacerItem4)
-        self.pushButton_2 = QtWidgets.QPushButton(self.widget_3)
+        self.dockWidget = QtWidgets.QDockWidget(self.MyWidget)
+        self.dockWidget.setMinimumSize(QtCore.QSize(262, 84))
+        self.dockWidget.setMaximumSize(QtCore.QSize(524287, 84))
+        self.dockWidget.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
+        self.dockWidget.setFeatures(QtWidgets.QDockWidget.DockWidgetMovable)
+        self.dockWidget.setObjectName("dockWidget")
+        self.dockWidgetContents_2 = QtWidgets.QWidget()
+        self.dockWidgetContents_2.setObjectName("dockWidgetContents_2")
+        self.widget_4 = QtWidgets.QWidget(self.dockWidgetContents_2)
+        self.widget_4.setGeometry(QtCore.QRect(304, 64, 350, 51))
+        self.widget_4.setStyleSheet("background-color: rgba(255, 255, 255);\n"
+"border-radius:10px;")
+        self.widget_4.setObjectName("widget_4")
+        self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.widget_4)
+        self.horizontalLayout_7.setContentsMargins(0, 5, 0, 0)
+        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
+        self.pushButton_2 = QtWidgets.QPushButton(self.widget_4)
         self.pushButton_2.setMinimumSize(QtCore.QSize(40, 40))
         self.pushButton_2.setMaximumSize(QtCore.QSize(40, 40))
         self.pushButton_2.setStyleSheet("background-color: rgb(255, 255, 255);\n"
@@ -108,8 +117,8 @@ class Ui_Form(object):
 "image: url(:/icon/image/播放.png);")
         self.pushButton_2.setText("")
         self.pushButton_2.setObjectName("pushButton_2")
-        self.horizontalLayout_6.addWidget(self.pushButton_2)
-        self.horizontalSlider = QtWidgets.QSlider(self.widget_3)
+        self.horizontalLayout_7.addWidget(self.pushButton_2)
+        self.horizontalSlider = QtWidgets.QSlider(self.widget_4)
         self.horizontalSlider.setMaximumSize(QtCore.QSize(100, 16777215))
         self.horizontalSlider.setStyleSheet("QSlider::groove:horizontal {\n"
 "    border:0px;\n"
@@ -133,8 +142,8 @@ class Ui_Form(object):
         self.horizontalSlider.setTickPosition(QtWidgets.QSlider.NoTicks)
         self.horizontalSlider.setTickInterval(1)
         self.horizontalSlider.setObjectName("horizontalSlider")
-        self.horizontalLayout_6.addWidget(self.horizontalSlider)
-        self.pushButton_3 = QtWidgets.QPushButton(self.widget_3)
+        self.horizontalLayout_7.addWidget(self.horizontalSlider)
+        self.pushButton_3 = QtWidgets.QPushButton(self.widget_4)
         self.pushButton_3.setMinimumSize(QtCore.QSize(40, 40))
         self.pushButton_3.setMaximumSize(QtCore.QSize(40, 40))
         self.pushButton_3.setStyleSheet("background-color: rgb(255, 255, 255);\n"
@@ -143,8 +152,8 @@ class Ui_Form(object):
         self.pushButton_3.setText("")
         self.pushButton_3.setIconSize(QtCore.QSize(10, 10))
         self.pushButton_3.setObjectName("pushButton_3")
-        self.horizontalLayout_6.addWidget(self.pushButton_3)
-        self.pushButton_4 = QtWidgets.QPushButton(self.widget_3)
+        self.horizontalLayout_7.addWidget(self.pushButton_3)
+        self.pushButton_4 = QtWidgets.QPushButton(self.widget_4)
         self.pushButton_4.setMinimumSize(QtCore.QSize(40, 40))
         self.pushButton_4.setMaximumSize(QtCore.QSize(40, 40))
         self.pushButton_4.setStyleSheet("background-color: rgb(255, 255, 255);\n"
@@ -152,8 +161,8 @@ class Ui_Form(object):
 "image: url(:/icon/image/历史记录.png);")
         self.pushButton_4.setText("")
         self.pushButton_4.setObjectName("pushButton_4")
-        self.horizontalLayout_6.addWidget(self.pushButton_4)
-        self.pushButton_5 = QtWidgets.QPushButton(self.widget_3)
+        self.horizontalLayout_7.addWidget(self.pushButton_4)
+        self.pushButton_5 = QtWidgets.QPushButton(self.widget_4)
         self.pushButton_5.setMinimumSize(QtCore.QSize(40, 40))
         self.pushButton_5.setMaximumSize(QtCore.QSize(40, 40))
         self.pushButton_5.setStyleSheet("background-color: rgb(255, 255, 255);\n"
@@ -161,8 +170,8 @@ class Ui_Form(object):
 "image: url(:/icon/image/反馈.png);")
         self.pushButton_5.setText("")
         self.pushButton_5.setObjectName("pushButton_5")
-        self.horizontalLayout_6.addWidget(self.pushButton_5)
-        self.pushButton_6 = QtWidgets.QPushButton(self.widget_3)
+        self.horizontalLayout_7.addWidget(self.pushButton_5)
+        self.pushButton_6 = QtWidgets.QPushButton(self.widget_4)
         self.pushButton_6.setMinimumSize(QtCore.QSize(40, 40))
         self.pushButton_6.setMaximumSize(QtCore.QSize(40, 40))
         self.pushButton_6.setStyleSheet("background-color: rgb(255, 255, 255);\n"
@@ -170,12 +179,11 @@ class Ui_Form(object):
 "image: url(:/icon/image/文件.png);")
         self.pushButton_6.setText("")
         self.pushButton_6.setObjectName("pushButton_6")
-        self.horizontalLayout_6.addWidget(self.pushButton_6)
-        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_6.addItem(spacerItem5)
-        self.verticalLayout.addWidget(self.widget_3)
-        spacerItem6 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout.addItem(spacerItem6)
+        self.horizontalLayout_7.addWidget(self.pushButton_6)
+        self.dockWidget.setWidget(self.dockWidgetContents_2)
+        self.verticalLayout.addWidget(self.dockWidget)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout.addItem(spacerItem4)
         self.horizontalLayout_2.addLayout(self.verticalLayout)
         self.horizontalLayout.addWidget(self.MyWidget)
 
