@@ -1,4 +1,10 @@
-from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLineEdit, QTextEdit, QPushButton
+import smtplib
+from email.mime.text import MIMEText
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLineEdit, QTextEdit, QPushButton, QMessageBox
+
+sender = 'Your QQ mailbox'
+password = 'Your QQ email authorization code'
+receivers = ['onebuaaer@gmail.com']
 
 
 class FeedbackDialog(QDialog):
@@ -27,6 +33,17 @@ class FeedbackDialog(QDialog):
     def submit(self):
         contact_info = self.contact_info.text()
         feedback = self.feedback.toPlainText()
-        # 在这里处理用户的联系方式和反馈，例如发送到服务器或保存到文件
-        print(f'联系方式: {contact_info}, 反馈: {feedback}')
+        message = MIMEText(f'''用户 {contact_info}的反馈: 
+{feedback}''', 'plain', 'utf-8')
+        message['Subject'] = '来自ImagePlayer用户的反馈'
+        message['From'] = sender
+        message['To'] = receivers[0]
+        try:
+            server = smtplib.SMTP('smtp.qq.com')
+            server.login(sender, password)
+            server.sendmail(sender, receivers, message.as_string())
+            QMessageBox.information(self, '成功', '已成功收到您的反馈，谢谢！')
+            server.quit()
+        except smtplib.SMTPException as e:
+            QMessageBox.information(self, '失败', f'您的反馈发送失败，失败原因为：{e}')
         self.close()
