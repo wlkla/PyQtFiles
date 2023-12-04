@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>image/文件.png</file>
+    <file>image/反馈.png</file>
+    <file>image/播放.png</file>
+    <file>image/历史记录.png</file>
+    <file>image/清空.png</file>
+  </qresource>
+</RCC>
