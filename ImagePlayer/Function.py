@@ -21,6 +21,7 @@ class Controller:
         self.ui.show()
         self.ui.horizontalSlider.hide()
         self.ui.resized.connect(self.handleResizeEvent)
+        self.ui.esc.connect(self.ui.showNormal)
 
     def InitParameter(self):
         self.timer = QTimer()
@@ -38,6 +39,7 @@ class Controller:
         self.ui.pushButton_4.clicked.connect(self.history)
         self.ui.pushButton_5.clicked.connect(self.feedback)
         self.ui.pushButton_6.clicked.connect(self.seecode)
+        self.ui.pushButton_7.clicked.connect(self.Fullscreen)
         self.ui.horizontalSlider.valueChanged.connect(self.play_timer.stop)
         self.animation_up = QPropertyAnimation(self.ui.widget_4, b"geometry")
         self.animation_down = QPropertyAnimation(self.ui.widget_4, b"geometry")
@@ -71,7 +73,10 @@ class Controller:
             if progress_dialog.wasCanceled():
                 break
 
-            height = int((self.ui.height() - 200))
+            if self.ui.isFullScreen():
+                height = 1050
+            else:
+                height = int((self.ui.height() - 200))
             label = QLabel()
             label.setScaledContents(True)
             picture = QPixmap(self.image[self.image_index])
@@ -96,15 +101,29 @@ class Controller:
             self.timer.stop()
 
     def handleResizeEvent(self):
-        height = int((self.ui.height() - 200))
+        if self.ui.isFullScreen():
+            height = 1050
+            self.ui.widget.hide()
+            self.ui.widget_4.move(0, 0)
+            self.ui.dockWidget.setFloating(True)
+            self.ui.dockWidget.setFixedSize(350, 51)
+            self.ui.dockWidget.setWindowTitle('功能区')
+        else:
+            self.ui.widget.show()
+            self.ui.dockWidget.setFixedHeight(84)
+            self.ui.dockWidget.setMinimumWidth(0)
+            self.ui.dockWidget.setWindowTitle('')
+            self.ui.dockWidget.setMaximumWidth(16777215)
+            self.ui.dockWidget.setFloating(False)
+            dock_width = self.ui.dockWidget.width()
+            widget_width = self.ui.widget_4.width()
+            new_x = max((dock_width - widget_width) // 2, 0)
+            height = int((self.ui.height() - 200))
+            self.ui.widget_4.setGeometry(new_x, 64, widget_width, 51)
+
         for label in self.labels:
             picture = label.pixmap()
             label.setFixedSize(int(picture.width() * (height / picture.height())), height)
-
-        dock_width = self.ui.dockWidget.width()
-        widget_width = self.ui.widget_4.width()
-        new_x = max((dock_width - widget_width) // 2, 0)
-        self.ui.widget_4.setGeometry(new_x, 64, widget_width, 51)
 
     def timerStart(self):
         if self.play_timer.isActive():
@@ -151,6 +170,7 @@ class Controller:
         dialog.exec_()
 
     def useFolder(self, item):
+        self.clear()
         folder = item.text()
         self.ui.lineEdit.setText(folder)
         self.image_folder = folder
@@ -167,17 +187,15 @@ class Controller:
         webbrowser.open('https://github.com/wlkla/pictureplayer/tree/main')
 
     def dockWidgetEnterEvent(self, event):
-        # Start animation to move widget_4 from outside to inside when the mouse enters the dockWidget
         self.moveWidget4FromOutside()
 
     def dockWidgetLeaveEvent(self, event):
-        # Start animation to move widget_4 from inside to outside when the mouse leaves the dockWidget
         self.moveWidget4ToOutside()
 
     def moveWidget4FromOutside(self):
         x = self.ui.widget_4.x()
         width = self.ui.widget_4.width()
-        target_rect = QRect(x, 4, width, 51)
+        target_rect = QRect(x, 0, width, 51)
 
         self.animation_up.setStartValue(QRect(x, 64, width, 51))
         self.animation_up.setEndValue(target_rect)
@@ -190,8 +208,14 @@ class Controller:
         width = self.ui.widget_4.width()
         target_rect = QRect(x, 64, width, 51)
 
-        self.animation_down.setStartValue(QRect(x, 4, width, 51))
+        self.animation_down.setStartValue(QRect(x, 0, width, 51))
         self.animation_down.setEndValue(target_rect)
         self.animation_down.setDuration(500)
         self.animation_down.setEasingCurve(QEasingCurve.OutCubic)
         self.animation_down.start()
+
+    def Fullscreen(self):
+        if self.ui.isFullScreen():
+            self.ui.showNormal()
+        else:
+            self.ui.showFullScreen()

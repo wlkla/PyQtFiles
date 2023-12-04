@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icon">
+    <file>image/全屏.png</file>
+    <file>image/Folder-My-documents-icon.ico</file>
     <file>image/文件.png</file>
     <file>image/反馈.png</file>
     <file>image/播放.png</file>

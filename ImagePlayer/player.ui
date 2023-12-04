@@ -14,8 +14,8 @@
    <string>Picture Player</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>D:/隐藏文件夹/ico/ico009_附加/Folder-My-documents-icon.ico</normaloff>D:/隐藏文件夹/ico/ico009_附加/Folder-My-documents-icon.ico</iconset>
+   <iconset resource="resource.qrc">
+    <normaloff>:/icon/image/Folder-My-documents-icon.ico</normaloff>:/icon/image/Folder-My-documents-icon.ico</iconset>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <property name="spacing">
@@ -59,22 +59,6 @@
         <property name="spacing">
          <number>0</number>
         </property>
-        <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>15</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item>
          <widget class="QWidget" name="widget" native="true">
           <property name="styleSheet">
@@ -196,7 +180,7 @@ background-color:transparent;</string>
              <x>0</x>
              <y>0</y>
              <width>956</width>
-             <height>350</height>
+             <height>375</height>
             </rect>
            </property>
            <property name="maximumSize">
@@ -344,6 +328,39 @@ QSlider::add-page:horizontal {
               </widget>
              </item>
              <item>
+              <widget class="QPushButton" name="pushButton_7">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>全屏</string>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(255, 255, 255);
+border-radius:20px;
+image: url(:/icon/image/全屏.png);</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>10</width>
+                 <height>10</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QPushButton" name="pushButton_3">
                <property name="minimumSize">
                 <size>
@@ -461,22 +478,6 @@ image: url(:/icon/image/文件.png);</string>
            </widget>
           </widget>
          </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>10</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </item>

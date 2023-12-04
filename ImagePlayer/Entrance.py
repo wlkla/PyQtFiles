@@ -9,10 +9,15 @@ from Function import *
 
 class mainwindow(Ui_Form, QWidget):
     resized = pyqtSignal()
+    esc = pyqtSignal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Escape:
+            self.esc.emit()
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
