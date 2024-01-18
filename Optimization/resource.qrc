@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>formule.png</file>
+    <file>icon.ico</file>
+  </qresource>
+</RCC>
