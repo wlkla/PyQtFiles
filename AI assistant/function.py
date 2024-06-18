@@ -1,4 +1,4 @@
-from 我的助手 import *
+from assistant import *
 
 flag_1 = True
 flag_2 = True
