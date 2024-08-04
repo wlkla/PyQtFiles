@@ -5,7 +5,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import QTimer, Qt, QPoint, QRect, QPropertyAnimation, QEasingCurve
 from PyQt5.QtWidgets import QFileDialog, QLabel, QMessageBox, QListWidget, QListWidgetItem, QDialog, QVBoxLayout, \
     QProgressDialog, QApplication
-from Entrance import mainwindow
+from ImagePlayer import mainwindow
 from Feedback import FeedbackDialog
 
 
